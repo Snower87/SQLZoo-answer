@@ -11,3 +11,17 @@ My answers for [SQLZoo](https://sqlzoo.net) tutorials questions
 7. [More JOIN](#more-join)
 8. [Using NULL](#using-null)
 9. [Self JOIN](#self-join)
+
+## SELECT basics
+Some simple queries to get you started
+
+1.1 Modify it to show the population of Germany
+```sql
+  SELECT population FROM world
+    WHERE name = 'Germany'
+```
+1.2 Modify it to show the population of Germany
+```sql
+  SELECT population FROM world
+    WHERE name = 'Russia'
+```
