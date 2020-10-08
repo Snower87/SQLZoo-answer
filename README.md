@@ -13,7 +13,7 @@ My answers for [SQLZoo](https://sqlzoo.net) tutorials questions
 9. [Self JOIN](#self-join)
 
 ## SELECT basics
-![alt text](/img/1 Stage - Table world.png "Table world")
+![alt text](./img/1 Stage - Table world.png "Table world")
 Some simple queries to get you started
 
 1.1 Modify it to show the population of Germany
@@ -25,4 +25,26 @@ Some simple queries to get you started
 ```sql
   SELECT population FROM world
     WHERE name = 'Russia'
+```
+
+2.1 Show the name and the population for 'Sweden', 'Norway' and 'Denmark'.
+```sql
+SELECT name, population FROM world
+  WHERE name IN ('Sweden', 'Norway', 'Denmark');
+```
+2.2 Show the name and the population for 'Brazil', 'Russia', 'India' and 'China'.
+```sql
+SELECT name, population FROM world
+  WHERE name IN ('Brazil', 'Russia', 'India', 'China');
+```
+
+3.1 Shows countries with an area of 250,000-300,000 sq. km.
+```sql
+SELECT name, area FROM world
+  WHERE area BETWEEN 250000 AND 300000
+```
+3.2 Modify it to show the country and the area for countries with an area between 200,000 and 250,000.
+```sql
+SELECT name, area FROM world
+  WHERE area BETWEEN 200000 AND 250000
 ```
