@@ -13,6 +13,7 @@ My answers for [SQLZoo](https://sqlzoo.net) tutorials questions
 9. [Self JOIN](#self-join)
 
 ## SELECT basics
+![](img/1 Stage - Table world.png)
 Some simple queries to get you started
 
 1.1 Modify it to show the population of Germany
@@ -20,7 +21,7 @@ Some simple queries to get you started
   SELECT population FROM world
     WHERE name = 'Germany'
 ```
-1.2 Modify it to show the population of Germany
+1.2 Modify it to show the population of Russia
 ```sql
   SELECT population FROM world
     WHERE name = 'Russia'
