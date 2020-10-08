@@ -13,7 +13,8 @@ My answers for [SQLZoo](https://sqlzoo.net) tutorials questions
 9. [Self JOIN](#self-join)
 
 ## SELECT basics
-![alt text](./img/1 Stage - Table world.png "Table world")
+<img src="img/1 Stage - Table world.png"/>
+![alt text](img/1 Stage - Table world.png "Table world")
 Some simple queries to get you started
 
 1.1 Modify it to show the population of Germany
