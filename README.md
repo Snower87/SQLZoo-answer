@@ -170,5 +170,9 @@ WHERE name NOT LIKE '% %'
   AND name LIKE '%u%'
 ```
 
+## SELECT from NOBEL (harder questions)
+<img src="img/3 Stage - Tabel Nobel Laureates.png"/>
+
+
 ```sql
 ```
