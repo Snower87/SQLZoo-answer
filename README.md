@@ -380,6 +380,55 @@ WHERE continent != ALL(SELECT continent FROM world WHERE population > 25000000)
 ```sql
 - NONE
 ```
+## SUM and COUNT
+0.1. The total population and GDP of Europe.
+```sql
+SELECT SUM(population), SUM(gdp)
+  FROM bbc
+  WHERE region = 'Europe'
+```
+0.2. What are the regions?
+```sql
+SELECT DISTINCT region FROM bbc
+```
+0.3. Show the name and population for each country with a population of more than 100000000. Show countries in descending order of population.
+```sql
+SELECT name, population
+  FROM bbc
+  WHERE population > 100000000
+  ORDER BY population DESC
+```
+1. Show the total population of the world.
+```sql
+SELECT SUM(population)
+FROM world
+```
+2. List all the continents - just once each.
+```sql
+SELECT DISTINCT continent
+FROM world
+```
+3. Give the total GDP of Africa
+```sql
+SELECT SUM(gdp)
+FROM world
+WHERE continent = 'Africa'
+```
+4. How many countries have an area of at least 1000000
+```sql
+SELECT COUNT(name)
+FROM world
+WHERE area > 1000000
+```
+5. What is the total population of ('Estonia', 'Latvia', 'Lithuania')
+```sql
+SELECT SUM(population)
+FROM world
+WHERE name IN ('Estonia', 'Latvia', 'Lithuania')
+```
+
+```sql
+```
 
 ```sql
 ```
