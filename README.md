@@ -11,6 +11,8 @@ My answers for [SQLZoo](https://sqlzoo.net) tutorials questions
 7. [More JOIN](#more-join)
 8. [Using NULL](#using-null)
 9. [Self JOIN](#self-join)
+## Additional material:
+1. [Using GROUP BY and HAVING]
 
 ## SELECT basics
 <img src="img/1 Stage - Table world.png"/>
@@ -425,6 +427,84 @@ WHERE area > 1000000
 SELECT SUM(population)
 FROM world
 WHERE name IN ('Estonia', 'Latvia', 'Lithuania')
+```
+6. For each continent show the continent and number of countries.
+```sql
+SELECT continent, COUNT(name)
+FROM world
+GROUP BY continent
+```
+7. For each continent show the continent and number of countries with populations of at least 10 million.
+```sql
+SELECT continent, COUNT(name)
+FROM world
+WHERE population > 10000000
+GROUP BY continent
+```
+8. List the continents that have a total population of at least 100 million.
+```sql
+SELECT continent
+FROM world
+GROUP BY continent
+HAVING SUM(population) >= 100000000
+```
+## JOIN
+1.
+```sql
+```
+
+```sql
+```
+
+```sql
+```
+
+```sql
+```
+
+```sql
+```
+
+```sql
+```
+
+```sql
+```
+
+```sql
+```
+## Using GROUP BY and HAVING
+1. For each continent show the number of countries:
+```sql
+SELECT continent, COUNT(name)
+FROM world
+GROUP BY continent
+```
+2. For each continent show the total population:
+```sql
+SELECT continent, SUM(population)
+FROM world
+GROUP BY continent
+```
+3. WHERE and GROUP BY. The WHERE filter takes place before the aggregating function.  
+For each relevant continent show the number of countries that has a population of at least 200000000.
+```sql
+SELECT continent, COUNT(name)
+FROM world
+WHERE population > 200000000
+GROUP BY continent
+```
+4. GROUP BY and HAVING. The HAVING clause is tested after the GROUP BY.  
+You can test the aggregated values with a HAVING clause.  
+Show the total population of those continents with a total population of at least half a billion.
+```sql
+SELECT continent, SUM(population)
+FROM world
+GROUP BY continent
+HAVING SUM(population) > 500000000
+```
+
+```sql
 ```
 
 ```sql
