@@ -451,35 +451,36 @@ HAVING SUM(population) >= 100000000
 ## JOIN
 <img src="img/6-1 Stage - Table Games.png"/>
 <img src="img/6-2 Stage - Table goal.png"/>
-<img src="img/6-3 Stage - Table eteam.png"/>
+<img src="img/6-3 Stage - Table eteam.png"/>  
+
 1.1 Shows the goal scored by a player with the last name 'Bender'.  
-The * says to list all the columns in the table - a shorter way of saying matchid, teamid, player, gtime
+The * says to list all the columns in the table - a shorter way of saying matchid, teamid, player, gtime  
 ```sql
 SELECT * FROM goal 
   WHERE player LIKE '%Bender'
 ```
-1.2 Show the matchid and player name for all goals scored by Germany. To identify German players, check for: teamid = 'GER'
+1.2 Show the matchid and player name for all goals scored by Germany. To identify German players, check for: teamid = 'GER'  
 ```sql
 SELECT matchid, player
 FROM goal
 WHERE teamid = 'GER'
 ```
-2. Show id, stadium, team1, team2 for just game 1012
+2. Show id, stadium, team1, team2 for just game 1012  
 ```sql
 SELECT id,stadium,team1,team2
 FROM game
 WHERE id = '1012'
 ```
-3. You can combine the two steps into a single query with a JOIN.
+3. You can combine the two steps into a single query with a JOIN.  
 ```sql
 SELECT *
   FROM game JOIN goal ON (id=matchid)
 ```
 The FROM clause says to merge data from the goal table with that from the game table.  
 The ON says how to figure out which rows in game go with which rows in goal - the matchid from goal must match id from game.  
-(If we wanted to be more clear/specific we could say ON (game.id=goal.matchid)
-The code below shows the player (from the goal) and stadium name (from the game table) for every goal scored.
-Modify it to show the player, teamid, stadium and mdate for every German goal.
+(If we wanted to be more clear/specific we could say ON (game.id=goal.matchid)  
+The code below shows the player (from the goal) and stadium name (from the game table) for every goal scored.  
+Modify it to show the player, teamid, stadium and mdate for every German goal.  
 ```sql
 SELECT player, teamid, stadium, mdate
 FROM goal JOIN game ON (goal.matchid=game.id)
@@ -491,6 +492,63 @@ SELECT team1, team2, player
 FROM game JOIN goal ON (id=matchid)
 WHERE player LIKE 'Mario%'
 ```
+5. The table eteam gives details of every national team including the coach.  
+You can JOIN goal to eteam using the phrase goal JOIN eteam on teamid=id  
+Show player, teamid, coach, gtime for all goals scored in the first 10 minutes gtime<=10
+```sql
+SELECT player, teamid, coach, gtime
+FROM goal JOIN eteam ON (teamid=id)
+WHERE gtime <= 10
+```
+6. To JOIN game with eteam you could use either  
+game JOIN eteam ON (team1=eteam.id) or game JOIN eteam ON (team2=eteam.id)  
+Notice that because id is a column name in both game and eteam you must specify eteam.id instead of just id  
+List the dates of the matches and the name of the team in which 'Fernando Santos' was the team1 coach.  
+```sql
+SELECT mdate, teamname
+FROM game JOIN eteam ON (team1=eteam.id)
+WHERE coach = 'Fernando Santos'
+```
+7. List the player for every goal scored in a game where the stadium was 'National Stadium, Warsaw'
+```sql
+SELECT player
+FROM game JOIN goal ON (id=matchid)
+WHERE stadium = 'National Stadium, Warsaw'
+```
+8. More difficult questions  
+The example query shows all goals scored in the Germany-Greece quarterfinal.
+Instead show the name of all players who scored a goal against Germany.
+```sql
+SELECT DISTINCT player
+FROM game JOIN goal ON matchid = id 
+WHERE (team1='GER' OR team2='GER') AND teamid != 'GER'
+```
+9. Show teamname and the total number of goals scored. (COUNT and GROUP BY)  
+You should COUNT(*) in the SELECT line and GROUP BY teamname  
+```sql
+SELECT teamname, COUNT(teamid/gtime) as goals
+FROM eteam JOIN goal ON id=teamid
+GROUP BY teamname
+```
+10.1 Show the stadium and the number of goals scored in each stadium.
+```sql
+SELECT stadium, COUNT(matchid) as goals
+FROM game JOIN goal ON id=matchid
+WHERE game.id=goal.matchid
+GROUP BY stadium
+```
+10.2 Another answer
+```sql
+SELECT stadium,COUNT(1)
+  FROM goal JOIN game ON id=matchid
+GROUP BY stadium
+```
+
+```sql
+```
+
+```sql
+```
 
 ```sql
 ```
@@ -500,7 +558,10 @@ WHERE player LIKE 'Mario%'
 
 ```sql
 ```
-## Using GROUP BY and HAVING
+
+```sql
+```
+## group-by-and-having
 1. For each continent show the number of countries:
 ```sql
 SELECT continent, COUNT(name)
