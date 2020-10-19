@@ -12,7 +12,7 @@ My answers for [SQLZoo](https://sqlzoo.net) tutorials questions
 8. [Using NULL](#using-null)
 9. [Self JOIN](#self-join)
 ## Additional material:
-1. [Using GROUP BY and HAVING]
+1. [Using GROUP BY and HAVING](#group-by-and-having)
 
 ## SELECT basics
 <img src="img/1 Stage - Table world.png"/>
@@ -449,20 +449,47 @@ GROUP BY continent
 HAVING SUM(population) >= 100000000
 ```
 ## JOIN
-1.
+<img src="img/6-1 Stage - Table Games.png"/>
+<img src="img/6-2 Stage - Table goal.png"/>
+<img src="img/6-3 Stage - Table eteam.png"/>
+1.1 Shows the goal scored by a player with the last name 'Bender'.  
+The * says to list all the columns in the table - a shorter way of saying matchid, teamid, player, gtime
 ```sql
+SELECT * FROM goal 
+  WHERE player LIKE '%Bender'
 ```
-
+1.2 Show the matchid and player name for all goals scored by Germany. To identify German players, check for: teamid = 'GER'
 ```sql
+SELECT matchid, player
+FROM goal
+WHERE teamid = 'GER'
 ```
-
+2. Show id, stadium, team1, team2 for just game 1012
 ```sql
+SELECT id,stadium,team1,team2
+FROM game
+WHERE id = '1012'
 ```
-
+3. You can combine the two steps into a single query with a JOIN.
 ```sql
+SELECT *
+  FROM game JOIN goal ON (id=matchid)
 ```
-
+The FROM clause says to merge data from the goal table with that from the game table.  
+The ON says how to figure out which rows in game go with which rows in goal - the matchid from goal must match id from game.  
+(If we wanted to be more clear/specific we could say ON (game.id=goal.matchid)
+The code below shows the player (from the goal) and stadium name (from the game table) for every goal scored.
+Modify it to show the player, teamid, stadium and mdate for every German goal.
 ```sql
+SELECT player, teamid, stadium, mdate
+FROM goal JOIN game ON (goal.matchid=game.id)
+WHERE teamid='GER'
+```
+4. Show the team1, team2 and player for every goal scored by a player called Mario player LIKE 'Mario%'
+```sql
+SELECT team1, team2, player
+FROM game JOIN goal ON (id=matchid)
+WHERE player LIKE 'Mario%'
 ```
 
 ```sql
