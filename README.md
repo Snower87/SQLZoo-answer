@@ -571,6 +571,62 @@ SELECT mdate,
 GROUP BY mdate, matchid, team1, team2
 ```
 
+## More JOIN
+<img src="img/7 Stage - Tables movie, actor, casting.png"/>  
+<a href="https://sqlzoo.net/wiki/More_details_about_the_database.">More details about the database.</a>
+1. 1962 movies. List the films where the yr is 1962 [Show id, title]
+```sql
+SELECT id, title
+FROM movie
+WHERE yr=1962
+```
+2. Give year of 'Citizen Kane'.
+```sql
+SELECT yr
+FROM movie
+WHERE title = 'Citizen Kane'
+```
+3. Star Trek movies. List all of the Star Trek movies, include the id, title and yr   
+(all of these movies include the words Star Trek in the title). Order results by year.
+```sql
+SELECT id, title, yr
+FROM movie
+WHERE title LIKE '%Star Trek%'
+ORDER BY yr
+```
+4. <b>id for actor Glenn Close.</b> What id number does the actor 'Glenn Close' have?
+```sql
+SELECT id
+FROM actor
+WHERE NAME = 'Glenn Close'
+```
+5. <b>id for Casablanca</b>  
+What is the id of the film 'Casablanca'
+```sql
+SELECT id
+FROM movie
+WHERE title = 'Casablanca'
+```
+6. <b>Cast list for Casablanca</b>
+Obtain the cast list for 'Casablanca'. What is a cast list?  
+The cast list is the names of the actors who were in the movie.  
+Use movieid=11768, (or whatever value you got from the previous question)  
+```sql
+SELECT name
+FROM casting JOIN actor ON (actorid=id)
+WHERE movieid=11768
+```
+7. <b>Alien cast list.</b>  
+Obtain the cast list for the film 'Alien'
+```sql
+SELECT name
+FROM casting JOIN actor ON (actorid = id)
+WHERE movieid = (SELECT id FROM movie WHERE title = 'Alien')
+```
+
+```sql
+```
+
 ```sql
 ```
 
@@ -579,6 +635,50 @@ GROUP BY mdate, matchid, team1, team2
 
 ```sql
 ```
+
+```sql
+```
+
+## Using NULL
+1.  
+```sql
+```
+2.  
+```sql
+```
+3.  
+```sql
+```
+
+```sql
+```
+
+```sql
+```
+
+```sql
+```
+
+## Self JOIN
+1.
+```sql
+```
+2.
+```sql
+```
+3.
+```sql
+```
+
+```sql
+```
+
+```sql
+```
+
+```sql
+```
+
 ## group-by-and-having
 1. For each continent show the number of countries:
 ```sql
