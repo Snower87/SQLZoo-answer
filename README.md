@@ -693,15 +693,29 @@ WHERE movie.id IN (
                SELECT id FROM actor
                  WHERE name = 'Julie Andrews'))
 ```
-
+13.  
 ```sql
 ```
-
+14.1 List the films released in the year 1978 ordered by the number of actors in the cast, then by title.
 ```sql
+SELECT title, COUNT(actorid)
+FROM movie, casting, actor
+WHERE yr = 1978
+   AND movieid = movie.id
+   AND actorid = actor.id
+GROUP BY title
+ORDER BY COUNT(actorid) DESC, title
 ```
-
+14.2 Another variant
 ```sql
+SELECT title, COUNT(actorid)
+FROM casting,movie                
+WHERE yr=1978
+      AND movieid=movie.id
+GROUP BY title
+ORDER BY 2 DESC,1 ASC
 ```
+15.
 
 ## Using NULL
 1.  
