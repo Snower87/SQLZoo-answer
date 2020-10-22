@@ -573,7 +573,8 @@ GROUP BY mdate, matchid, team1, team2
 
 ## More JOIN
 <img src="img/7 Stage - Tables movie, actor, casting.png"/>  
-<a href="https://sqlzoo.net/wiki/More_details_about_the_database.">More details about the database.</a>
+<a href="https://sqlzoo.net/wiki/More_details_about_the_database.">More details about the database.</a>  
+
 1. 1962 movies. List the films where the yr is 1962 [Show id, title]
 ```sql
 SELECT id, title
@@ -623,11 +624,74 @@ SELECT name
 FROM casting JOIN actor ON (actorid = id)
 WHERE movieid = (SELECT id FROM movie WHERE title = 'Alien')
 ```
-
+8.1 <b>Harrison Ford movies.</b> List the films in which 'Harrison Ford' has appeared  
 ```sql
+SELECT title
+FROM movie, casting, actor
+WHERE name='Harrison Ford'
+   AND movieid=movie.id
+   AND actorid=actor.id
+```   
+8.2 Another variant
+```sql
+SELECT title
+FROM movie
+WHERE id IN (SELECT movieid FROM casting WHERE actorid = 2216)
 ```
-
+9. <b>Harrison Ford as a supporting actor.</b>  
+List the films where 'Harrison Ford' has appeared - but not in the starring role. [Note: the ord field of casting gives the position of the actor. If ord=1 then this actor is in the starring role]  
 ```sql
+SELECT title
+FROM movie, casting, actor
+WHERE movieid = movie.id
+   AND actorid = actor.id
+   AND name = 'Harrison Ford'
+   AND ord != 1
+```
+10. <b>Lead actors in 1962 movies.</b>   
+List the films together with the leading star for all 1962 films.
+```sql
+SELECT title, name
+FROM movie, casting, actor
+WHERE yr = 1962 
+   AND movieid = movie.id
+   AND actorid = actor.id
+   AND ord = 1
+```
+11.1 <b>Busy years for Rock Hudson.</b>  
+Which were the busiest years for 'Rock Hudson', show the year  
+and the number of movies he made each year for any year in which he made more than 2 movies.
+```sql
+SELECT yr,COUNT(title) FROM
+  movie JOIN casting ON movie.id=movieid
+        JOIN actor   ON actorid=actor.id
+WHERE name='Rock Hudson'
+GROUP BY yr
+HAVING COUNT(title) > 2
+```
+11.2 Another variant
+```sql
+SELECT yr,COUNT(title) 
+FROM movie, casting, actor   
+WHERE name='Rock Hudson'
+  AND movie.id=movieid
+  AND actorid=actor.id
+GROUP BY yr
+HAVING COUNT(title) > 2
+```
+12. <b>Lead actor in Julie Andrews movies.</b>  
+List the film title and the leading actor for all of the films 'Julie Andrews' played in.  
+Did you get "Little Miss Marker twice"?
+```sql
+SELECT title, name
+FROM movie JOIN casting ON (movieid = movie.id 
+                            AND ord = 1)
+           JOIN actor ON (actorid = actor.id)
+WHERE movie.id IN (
+           SELECT movieid FROM casting
+             WHERE actorid IN (
+               SELECT id FROM actor
+                 WHERE name = 'Julie Andrews'))
 ```
 
 ```sql
