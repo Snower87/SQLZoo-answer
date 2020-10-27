@@ -738,20 +738,47 @@ ORDER BY 2 DESC,1 ASC
 ```
 
 ## Self JOIN
-1.
+1.1 How many stops are in the database.
 ```sql
+SELECT COUNT(*) 
+FROM stops
 ```
-2.
+1.2 Another variant
 ```sql
+SELECT COUNT(id)
+FROM stops
 ```
-3.
+2. Find the id value for the stop 'Craiglockhart'
 ```sql
+SELECT id
+FROM stops
+WHERE name = 'Craiglockhart'
 ```
-
+3. Give the id and the name for the stops on the '4' 'LRT' service.
 ```sql
+SELECT id, name
+FROM stops, route
+WHERE id = stop
+ AND company = 'LRT'
+ AND num = '4'
 ```
-
+4. <b>Routes and stops</b>  
+The query shown gives the number of routes that visit either London Road (149) or Craiglockhart (53).  
+Run the query and notice the two services that link these stops have a count of 2.  
+Add a HAVING clause to restrict the output to these two routes.  
 ```sql
+SELECT company, num, COUNT(*) aaa
+FROM route WHERE stop=149 OR stop=53
+GROUP BY company, num
+HAVING aaa = 2
+```
+5. Execute the self join shown and observe that b.stop gives all the places you can get to from Craiglockhart,  
+without changing routes. Change the query so that it shows the services from Craiglockhart to London Road.
+```sql
+SELECT a.company, a.num, a.stop, b.stop
+FROM route a JOIN route b ON
+  (a.company=b.company AND a.num=b.num)
+WHERE a.stop = 53 AND b.stop = 149
 ```
 
 ```sql
