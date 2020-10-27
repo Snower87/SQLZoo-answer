@@ -738,6 +738,9 @@ ORDER BY 2 DESC,1 ASC
 ```
 
 ## Self JOIN
+<img src="img/9 Stage - Tables stops, route.png"/>  
+<a href="https://sqlzoo.net/wiki/Edinburgh_Buses.">More details about the database.</a>  
+
 1.1 How many stops are in the database.
 ```sql
 SELECT COUNT(*) 
