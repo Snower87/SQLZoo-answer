@@ -783,6 +783,46 @@ FROM route a JOIN route b ON
   (a.company=b.company AND a.num=b.num)
 WHERE a.stop = 53 AND b.stop = 149
 ```
+6. The query shown is similar to the previous one, however by joining two copies of the stops table we can  
+refer to stops by name rather than by number. Change the query so that the services between 'Craiglockhart' and 'London Road' are shown.  
+If you are tired of these places try 'Fairmilehead' against 'Tollcross'
+```sql
+SELECT a.company, a.num, stopa.name, stopb.name
+FROM route a JOIN route b ON
+  (a.company=b.company AND a.num=b.num)
+  JOIN stops stopa ON (a.stop=stopa.id)
+  JOIN stops stopb ON (b.stop=stopb.id)
+WHERE stopa.name='Craiglockhart' AND stopb.name='London Road'
+//WHERE stopa.name='Fairmilehead' AND stopb.name='Tollcross'
+```
+<a href="https://sqlzoo.net/wiki/Using_a_self_join">More about Self-Join</a>  
+
+7.1 Give a list of all the services which connect stops 115 and 137 ('Haymarket' and 'Leith')
+```sql
+SELECT DISTINCT b.company , b.num
+FROM route a JOIN route b ON
+(a.company = b.company AND a.num = b.num)
+JOIN stops stopa ON (a.stop = stopa.id)
+JOIN stops stopb ON (b.stop = stopb.id)
+WHERE stopa.name = 'Leith' AND stopb.name = 'Haymarket'
+```
+7.2 Another variant
+```sql
+SELECT DISTINCT R1.company, R1.num
+  FROM route R1, route R2
+  WHERE R1.num=R2.num AND R1.company=R2.company
+    AND R1.stop=115 AND R2.stop=137
+
+```
+
+```sql
+```
+
+```sql
+```
+
+```sql
+```
 
 ```sql
 ```
