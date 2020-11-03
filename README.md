@@ -718,11 +718,19 @@ ORDER BY 2 DESC,1 ASC
 15.
 
 ## Using NULL
-1.  
+<img src="img/8 Stage - Tables teacher, dept.png"/>  
+
+1. List the teachers who have NULL for their department
 ```sql
+SELECT name
+FROM teacher
+WHERE dept IS NULL
 ```
 2.  
 ```sql
+SELECT teacher.name AS teachers, dept.name AS department
+ FROM teacher INNER JOIN dept
+           ON (teacher.dept=dept.id)
 ```
 3.  
 ```sql
